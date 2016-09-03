@@ -136,4 +136,31 @@ with codecs.open('/Users/michael/gbk.txt', 'r', 'gbk') as f:
 >>> os.path.split('/Users/michael/testdir/file.txt')
 ('/Users/michael/testdir', 'file.txt')
 
+# os.path.splitext()可以直接让你得到文件扩展名
+>>> os.path.splitext('/path/to/file.txt')
+('/path/to/file', '.txt')
+
+# 对文件重命名:
+>>> os.rename('test.txt', 'test.py')
+# 删掉文件:
+>>> os.remove('test.py')
+
 ```
+- **复制文件的函数居然在os模块中不存在**！原因是复制文件并非由操作系统提供的系统调用
+
+- shutil模块
+  - 在`shutil模块`中找到很多实用函数，它们可以看做是os模块的补充
+- 如何利用Python的特性来过滤文件?
+  - 要列出当前目录下的所有目录，只需要一行代码
+  ```python
+  >>> [x for x in os.listdir('.') if os.path.isdir(x)]
+   ['.lein', '.local', '.m2', '.npm', '.ssh', '.Trash', '.vim', 'Adlm', 'Applications', 'Desktop', ...]
+  ```
+  
+  - 要列出所有的`.py`文件，也只需一行代码
+
+  ```python
+    >>> [x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1]=='.py']
+['apis.py', 'config.py', 'models.py', 'pymonitor.py', 'test_db.py', 'urls.py', 'wsgiapp.py']
+  ```
+
