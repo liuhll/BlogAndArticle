@@ -159,8 +159,117 @@ with codecs.open('/Users/michael/gbk.txt', 'r', 'gbk') as f:
   
   - 要列出所有的`.py`文件，也只需一行代码
 
-  ```python
+```python
     >>> [x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1]=='.py']
-['apis.py', 'config.py', 'models.py', 'pymonitor.py', 'test_db.py', 'urls.py', 'wsgiapp.py']
+   ['apis.py', 'config.py', 'models.py', 'pymonitor.py', 'test_db.py', 'urls.py', 'wsgiapp.py']
+ ```
+
+
+## 序列化
+- 序列化: 把变量从内存中变成可存储或传输的过程称之为序列化
+   - 对象： 内存中--->可存储｜可传输
+   - Python中叫`pickling`   
+   - 序列化之后，就可以把序列化后的内容写入磁盘，或者通过网络传输到别的机器上
+
+- 反序列化
+   - 把变量内容从序列化的对象重新读到内存里称之为反序列化
+   - 对象：磁盘，网络中--->读取到内存中
+   - `unpickling`
+
+- `cPickle`和`pickle`模块
+   > 这两个模块功能是一样的，区别在于`cPickle`是`C语言`写的，速度快，`pickle`是纯`Python`写的，速度慢，跟`cStringIO`和`StringIO`一个道理。用的时候，先尝试导入`cPickle`，如果失败，再导入`pickle`
+   
+   ```python
+   try:
+     import cPickle as pickle
+   except ImportError:
+     import pickle
+   
+   ```
+
+- 尝试把一个对象序列化并写入文件   
+  - `pickle.dumps()`方法把任意对象序列化成一个`str`，然后，就可以把这个`str`写入文件。
+  - 或者用另一个方法`pickle.dump()`直接把对象序列化后写入一个`file-like Object`：
+
+  ```python
+  >>> d = dict(name='Bob', age=20, score=88)
+  >>> pickle.dumps(d)
+  "(dp0\nS'age'\np1\nI20\nsS'score'\np2\nI88\nsS'name'\np3\nS'Bob'\np4\ns."
+  ```
+  ```python
+  >>> f = open('dump.txt', 'wb')
+  >>> pickle.dump(d, f)
+  >>> f.close()
   ```
 
+- 反序列化
+  - 要把对象从磁盘读到内存时，可以先把内容读到一个`str`，然后用`pickle.loads()`方法反序列化出对象，
+  - 也可以直接用`pickle.load()`方法从一个`file-like Object`中直接反序列化出对象
+
+  ```python
+  >>> f = open('dump.txt', 'rb')
+  >>> d = pickle.load(f)
+  >>> f.close()
+  >>> d
+  {'age': 20, 'score': 88, 'name': 'Bob'}
+  ```
+
+  - 这个变量和原来的变量是完全不相干的对象，它们只是内容相同而已
+  > Pickle的问题和所有其他编程语言特有的序列化问题一样，就是它只能用于Python，并且可能不同版本的Python彼此都不兼容，因此，**只能用Pickle保存那些不重要的数据，不能成功地反序列化也没关系。**
+
+## JSON
+- 不同的编程语言之间传递对象，就必须把对象序列化为标准格式
+  - xml
+  - JSON
+    > 更好的方法是序列化为`JSON`，因为`JSON`表示出来就是一个字符串，可以被所有语言读取，也可以方便地存储到磁盘或者通过网络传输  
+    > `JSON`不仅是标准格式，并且比XML更快，而且可以直接在Web页面中读取 
+- JSON类型与Python类型    
+
+| Json类型|Python类型   |
+|:---------:|:--------:|
+| {} |	dict |
+|[]	 |list |
+|"string"  |	'str'或u'unicode' |
+| 1234.56 |	int或float |
+|true/false |	True/False |
+| null |	None |
+
+- json模块
+  - Python对象到JSON格式的转换
+```python
+>>> import json
+>>> d = dict(name='Bob', age=20, score=88)
+>>> json.dumps(d)
+'{"age": 20, "score": 88, "name": "Bob"}'
+```
+  - `dumps()`方法返回一个`str`，内容就是标准的`JSON`。
+  - `dump()`方法可以直接把`JSON`写入一个`file-like Object`。
+- 反序列化
+```python
+>>> json_str = '{"age": 20, "score": 88, "name": "Bob"}'
+>>> json.loads(json_str)
+{u'age': 20, u'score': 88, u'name': u'Bob'}
+```   
+- 反序列化得到的所有字符串对象默认都是`unicode`而**不是`str`**
+- JSON标准规定JSON编码是`UTF-8`，所以我们总是能正确地在Python的`str`或`unicode`与`JSON`的字符串之间转换
+
+### JSON进阶
+- [对象序列化](https://docs.python.org/2/library/json.html#json.dumps)
+- 把任意`class`的实例变为`dict`
+```python
+print(json.dumps(s, default=lambda obj: obj.__dict__))
+```
+
+- 通常`class`的实例都有一个`__dict__`属性，它就是一个`dict`，**用来存储实例变量**
+- 如果我们要把JSON反序列化为一个`Student`对象实例，`loads()`方法首先转换出一个`dict对象`，然后，我们传入的`object_hook函数`负责把`dict`转换为`Student`实例
+
+```python
+def dict2student(d):
+    return Student(d['name'], d['age'], d['score'])
+
+json_str = '{"age": 20, "score": 88, "name": "Bob"}'
+print(json.loads(json_str, object_hook=dict2student))
+```
+
+> json模块的`dumps()`和`loads()`函数是定义得非常好的接口的典范  
+> 当默认的序列化或反序列机制不满足我们的要求时，我们又**可以传入更多的参数来定制序列化或反序列化的规则**，既做到了接口简单易用，又做到了充分的扩展性和灵活性
