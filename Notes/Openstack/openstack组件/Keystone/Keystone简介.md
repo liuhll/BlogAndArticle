@@ -14,7 +14,7 @@
 ### Tenant
 - 各个服务中的一些**可以访问的资源集合**
    - 在Nova中一个`tenant`可以是一些机器
-   - 在S`wift`和`Glance`中一个`tenant`可以是一些镜像存储
+   - 在`Swift`和`Glance`中一个`tenant`可以是一些镜像存储
    - 在Quantum中一个`tenant`可以是一些网络资源 
 - `Users`默认的**总是绑定到某些`tenant`上** 
 
