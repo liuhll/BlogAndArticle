@@ -107,3 +107,134 @@ function createStudent(props) {
 - `createStudent()`函数
 - 不需要`new`来调用，二是参数非常灵活
    - 可以不传，也可以这么传
+   
+```javascript
+var xiaoming = createStudent({
+    name: '小明'
+});
+
+xiaoming.grade; // 1
+```
+
+## 原型继承
+- `JavaScript`由于采用`原型继承`，我们无法直接扩展一个`Class`，因为根本不存在`Class`这种类型
+- 须借助一个**中间对象**来实现正确的`原型链`，这个中间对象的原型要指向`Student.prototype`
+   - **中间对象**可以用一个`空函数F`来实现
+   - 函数`F`仅用于**桥接**，我们仅创建了一个`new F()`实例，而且，没有改变原有的`Student`定义的原型链
+
+```javascript
+// PrimaryStudent构造函数:
+function PrimaryStudent(props) {
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+}
+
+// 空函数F:
+function F() {
+}
+
+// 把F的原型指向Student.prototype:
+F.prototype = Student.prototype;
+
+// 把PrimaryStudent的原型指向一个新的F对象，F对象的原型正好指向Student.prototype:
+PrimaryStudent.prototype = new F();
+
+// 把PrimaryStudent原型的构造函数修复为PrimaryStudent:
+PrimaryStudent.prototype.constructor = PrimaryStudent;
+
+// 继续在PrimaryStudent原型（就是new F()对象）上定义方法：
+PrimaryStudent.prototype.getGrade = function () {
+    return this.grade;
+};
+
+// 创建xiaoming:
+var xiaoming = new PrimaryStudent({
+    name: '小明',
+    grade: 2
+});
+xiaoming.name; // '小明'
+xiaoming.grade; // 2
+
+// 验证原型:
+xiaoming.__proto__ === PrimaryStudent.prototype; // true
+xiaoming.__proto__.__proto__ === Student.prototype; // true
+
+// 验证继承关系:
+xiaoming instanceof PrimaryStudent; // true
+xiaoming instanceof Student; // true
+```   
+
+- 把继承这个动作用一个`inherits()`函数封装起来，还可以隐藏F的定义，并简化代码
+
+```javascript
+function inherits(Child, Parent) {
+    var F = function () {};
+    F.prototype = Parent.prototype;
+    Child.prototype = new F();
+    Child.prototype.constructor = Child;
+}
+```
+
+- `inherits()`函数可以复用
+
+```javascript
+function Student(props) {
+    this.name = props.name || 'Unnamed';
+}
+
+Student.prototype.hello = function () {
+    alert('Hello, ' + this.name + '!');
+}
+
+function PrimaryStudent(props) {
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+}
+
+// 实现原型继承链:
+inherits(PrimaryStudent, Student);
+
+// 绑定其他方法到PrimaryStudent原型:
+PrimaryStudent.prototype.getGrade = function () {
+    return this.grade;
+};
+```
+
+### 原型继承实现方式
+1. 定义**新的构造函数**，并在内部用`call()`**调用希望继承的构造函数**，并**绑定`this`**；
+2. 借助`中间函数F`实现`原型链继承`，最好通过封装的`inherits`函数完成；
+3. 继续在`新的构造函数`的`原型`上定义**新方法**
+
+
+### class继承
+- `class`从**ES6**开始正式被引入到JavaScript中
+   - `class`的目的就是让定义类更简单
+
+```javascript
+class Student {
+    constructor(name) {
+        this.name = name;
+    }
+
+    hello() {
+        alert('Hello, ' + this.name + '!');
+    }
+}
+```
+
+- class继承
+
+```javascript
+class PrimaryStudent extends Student {
+    constructor(name, grade) {
+        super(name); // 记得用super调用父类的构造方法!
+        this.grade = grade;
+    }
+
+    myGrade() {
+        alert('I am at grade ' + this.grade);
+    }
+}
+```
+- 用`class`的好处就是极大地简化了**原型链代码**
+- **不是**所有的主流浏览器都支持*`ES6`的`class`
