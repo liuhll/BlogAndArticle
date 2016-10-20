@@ -5,3 +5,6 @@
 
 ## About Yun
 - [零基础学习openstack【完整中级篇】及openstack资源汇总](http://www.aboutyun.com/thread-10306-1-1.html)
+
+## 个人博客
+- [陈沙克日志--Openstack](http://www.chenshake.com/tag/openstack/)
