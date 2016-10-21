@@ -22,7 +22,7 @@ fi
 > - 最后**必须**以 `fi` 来结尾**闭合 `if`**，`fi` 就是 `if` **倒过来拼写**
 > - `expression` 和方括号(`[ ]`)之间**必须有空格**，否则会*有语法错误*
 
-- [`if`例子](../Shell.Demo/if.expression.sh)
+- [`if`例子](../../Shell.Demo/if.expression.sh)
 
 - `if ... else` 语句也可以写成一行，以命令的方式来运行
 
@@ -47,7 +47,7 @@ fi
 > -  `expression` 返回 `true`，那么 `then` 后边的语句将会被执行；
 > - 否则，执行 `else` 后边的语句 
 
-- [`if...else`例子](../Shell.Demo/if.else.expression.sh)
+- [`if...else`例子](../../Shell.Demo/if.else.expression.sh)
 
 ##  if ... elif ... fi 语句
 - 对`多个条件`进行判断
@@ -72,7 +72,7 @@ fi
 > -  `expression` 的值为 `true`，就执行哪个`expression` 后面的语句；
 > - 如果都为 `false`，那么**不执行任何语句**
 
-- [if...elif...else例子](../Shell.Demo/if.elif.expression.sh)
+- [if...elif...else例子](../../Shell.Demo/if.elif.expression.sh)
 
 ## `if...else`与`test`语句的结合使用
 
