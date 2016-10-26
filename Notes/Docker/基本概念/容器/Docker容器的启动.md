@@ -52,4 +52,48 @@ docker run
 
 - `容器`的**核心**为所执行的应用程序，所需要的`资源`都是**应用程序运行所必需**的。
    - 除此之外，并**没有**其它的`资源`。
-   - 可以在*伪终端*中利用 `ps` 或 `top` 来查看进程信息。   
+   - 可以在*伪终端*中利用 `ps` 或 `top` 来查看进程信息。
+
+
+## 守护态运行【后台(background)运行】
+
+**更多的时候**，需要让 `Docker`在后台运行而**不是**直接把执行命令的结果输出在当前`宿主机`下
+
+- 可以通过添加 `-d`参数来实现
+
+- **Demo**
+   1. 不使用 `-d` 参数运行容器
+   ```bash
+   $ sudo docker run ubuntu:14.04 /bin/sh -c "while true; do echo hello world; sleep 1; done"
+     hello world
+     hello world
+     hello world
+     hello world
+   ```
+   > **Notes**
+   > - `容器`会把输出的结果(`STDOUT`)打印到`宿主机`上面
+
+  2. 使用了 `-d` 参数运行容器 
+   ```bash
+   $ sudo docker run -d ubuntu:14.04 /bin/sh -c "while true; do echo hello world; sleep 1; done"
+     77b2dc01fe0f3f1265df143181e7b9af5e05279a884f4776ee75350ea9d8017a
+   ``` 
+   > **Notes**
+   > - `容器`会在后台运行并**不会**把输出的结果(`STDOUT`)打印到`宿主机`上面
+   > - 输出结果可以用`docker logs` 查看
+   > - `容器`是否会长久运行，是和`docker run`指定的命令有关，和 `-d` 参数**无关**
+   > - 使用 `-d` 参数启动后会返回一个**唯一**的 `id`，也可以通过 `docker ps` 命令来查看`容器`信息
+    
+    ```bash
+    $ sudo docker ps
+      CONTAINER ID  IMAGE         COMMAND               CREATED        STATUS       PORTS NAMES
+      77b2dc01fe0f  ubuntu:14.04  /bin/sh -c 'while tr  2 minutes ago  Up 1 minute        agitated_wright
+    ```
+- 要获取容器的输出信息，可以通过 `docker logs` 命令    
+
+```bash
+$ sudo docker logs [container ID or NAMES]
+hello world
+hello world
+hello world
+```
