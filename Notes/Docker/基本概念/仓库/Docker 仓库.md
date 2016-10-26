@@ -10,7 +10,7 @@
 
 ## Docker 仓库形式
 - `公开仓库`（`Public`）
-   - 最大的公开仓库是 [Docker Hub](https://hub.docker.com/，存放了数量庞大的镜像供用户下载
+   - 最大的公开仓库是 [Docker Hub](https://hub.docker.com/)，存放了数量庞大的镜像供用户下载
    - 国内的公开仓库包括 `时速云` 、`网易云` 等，可以提供大陆用户更稳定快速的访问
 
 - `私有仓库`（`Private`)
