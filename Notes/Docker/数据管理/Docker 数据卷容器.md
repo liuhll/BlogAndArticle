@@ -20,7 +20,7 @@ $ sudo docker run -d --volumes-from dbdata --name db2 training/postgres
 
 > **Notes**  
 > - 可以使用**超过一个**的 `--volumes-from` 参数来指定从**多个容器**挂载*不同的`数据卷`*。 
-> - 也可以从其他已经挂载了`数据卷`的`容器`来**级联挂载`数据卷`**。
+> - 也可以从其他已经挂载了`数据卷`的`容器`来**级联挂载`数据卷`**。  
 >    ```bash
 >     $ sudo docker run -d --name db3 --volumes-from db1 training/postgres
 >    ```
