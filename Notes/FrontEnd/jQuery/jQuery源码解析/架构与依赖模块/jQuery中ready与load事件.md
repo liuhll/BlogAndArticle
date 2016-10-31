@@ -87,11 +87,5 @@ if ( top && top.doScroll ) {
 
 > **Notes**
 > - 如果浏览器存在`document.onreadystatechange` 事件，当该事件触发时，如果 `document.readyState=complete` 的时候，可视为 `DOM` 树已经载入
-<<<<<<< HEAD
-> - 总的来说当页面 `DOM` 未加载完成时，调用 `doScroll` 方法时，会产生异常。那么我们反过来用，如果不异常，那么就是页面**DOM加载完毕**了 
-=======
 > - 总的来说当页面 `DOM` 未加载完成时，调用 `doScroll` 方法时，会产生异常。那么我们反过来用，如果不异常，那么就是页面**DOM加载完毕**了 
 
-- 针对IE的加载检测
-
->>>>>>> a869da6... jquery 的ready和load事件的加载顺序以及jquery的加载时机
