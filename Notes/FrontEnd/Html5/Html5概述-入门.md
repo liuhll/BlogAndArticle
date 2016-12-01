@@ -118,3 +118,6 @@ HTML5 被设计为尽可能的对现有浏览器向后兼容。新特性都是�
   <footer>...</footer>
 </body>
 ```
+
+## HTML5 事件
+- [](http://wiki.jikexueyuan.com/project/html5/events.html)
