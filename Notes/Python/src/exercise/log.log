@@ -1,0 +1,14 @@
+DEBUG 2016-12-04 12:24:01,050 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2016-12-04 12:24:01,063 [1    ] Abp.Modules.AbpModuleManager             - Found 15 ABP modules in total.
+DEBUG 2016-12-04 12:24:01,066 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Lazyboy.Lottery.Web.LotteryWebModule, Lazyboy.Lottery.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,068 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Lazyboy.Lottery.LotteryDataModule, Lazyboy.Lottery.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,068 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.EntityFramework.AbpZeroEntityFrameworkModule, Abp.Zero.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,069 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.Zero, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,069 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,069 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkModule, Abp.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,069 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Lazyboy.Lottery.LotteryCoreModule, Lazyboy.Lottery.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,070 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Lazyboy.Lottery.LotteryApplicationModule, Lazyboy.Lottery.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,070 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,070 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Lazyboy.Lottery.Api.LotteryWebApiModule, Lazyboy.Lottery.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,070 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.WebApi.AbpWebApiModule, Abp.Web.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2016-12-04 12:24:01,070 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebModule, Abp.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
